@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>StyleCart - Create User</title>
+</head>
+<body>
+
+<h2>Create User</h2>
+
+<form id="userForm">
+
+    <label>Full Name:</label>
+    <input type="text" id="fullName" required>
+    <br><br>
+
+    <label>Email:</label>
+    <input type="email" id="email" required>
+    <br><br>
+
+    <label>Password:</label>
+    <input type="password" id="password" required>
+    <br><br>
+
+    <label>Role:</label>
+    <select id="role">
+        <option value="CUSTOMER">CUSTOMER</option>
+        <option value="VENDOR">VENDOR</option>
+        <option value="ADMIN">ADMIN</option>
+    </select>
+    <br><br>
+
+    <button type="submit">Create User</button>
+
+</form>
+
+<p id="message"></p>
+
+<script>
+
+document.getElementById("userForm").addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    const user = {
+        fullName: document.getElementById("fullName").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value,
+        role: document.getElementById("role").value
+    };
+
+    fetch("/users", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById("message").innerText =
+            "User created successfully!";
+        console.log(data);
+    })
+    .catch(error => {
+        document.getElementById("message").innerText =
+            "Error creating user.";
+        console.error(error);
+    });
+
+});
+
+</script>
+
+</body>
+</html>
