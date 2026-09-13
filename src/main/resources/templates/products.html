@@ -150,7 +150,9 @@
                 <span th:text="${product.stock}">0</span>
             </p>
 
-            <a href="#" class="btn">View Product</a>
+            <a th:href="@{/product/{id}(id=${product.id})}" class="btn">
+              View Product
+            </a>
 
         </div>
 
