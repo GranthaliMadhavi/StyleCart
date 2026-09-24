@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Cart - StyleCart</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f1ed;
+        }
+
+        .navbar {
+            background-color: #3e2723;
+            padding: 18px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        h1 {
+            color: #3e2723;
+        }
+
+        .cart-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">StyleCart</a>
+        <a href="/">Home</a>
+        <a href="/product-page">Products</a>
+        <a href="/cart">Cart</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>My Cart</h1>
+
+       <div th:if="${cartProducts.isEmpty()}">
+    <p>Your cart is empty.</p>
+</div>
+
+<div th:each="entry : ${cartProducts}" class="cart-item">
+
+    <div>
+        <h2 th:text="${entry.value.name}">Product Name</h2>
+
+        <p>
+            <strong>Category:</strong>
+            <span th:text="${entry.value.category}">Category</span>
+        </p>
+
+        <p>
+            <strong>Price:</strong>
+            ₹<span th:text="${entry.value.price}">0</span>
+        </p>
+
+        <p>
+            <strong>Quantity:</strong>
+            <span th:text="${entry.key.quantity}">1</span>
+        </p>
+
+    </div>
+
+</div>
+<div class="grand-total">
+
+    <h2>
+        Grand Total:
+        ₹<span th:text="${grandTotal}">0</span>
+    </h2>
+
+</div>
+    </div>
+
+</body>
+</html>

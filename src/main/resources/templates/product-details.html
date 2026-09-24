@@ -123,7 +123,7 @@
             <p class="description" th:text="${product.description}">Product Description</p>
             <p class="price">$<span th:text="${product.price}">0</span></p>
             <p class="stock">Stock: <span th:text="${product.stock}">0</span></p>
-            <a href="#" class="btn">Add to Cart</a>
+            <a th:href="@{/carts/add/{id}(id=${product.id})}" class="btn">Add to Cart</a>
 
         </div>
             </div>
