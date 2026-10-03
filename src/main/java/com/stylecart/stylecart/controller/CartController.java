@@ -38,4 +38,34 @@ public class CartController {
                 .header("Location", "/product-page")
                 .build();
     }
+    @GetMapping("/increase/{productId}")
+    public ResponseEntity<Void> increaseQuantity(@PathVariable Long productId){
+        Long userId = 1L;
+
+        cartService.increaseQuantity(userId, productId);
+        
+        return ResponseEntity.status(302)
+                .header("Location", "/cart")
+                .build();
+    }
+    @GetMapping("/decrease/{productId}")
+    public ResponseEntity<Void> decreaseQuantity(@PathVariable Long productId){
+        Long userId = 1L;
+
+        cartService.decreaseQuantity(userId, productId);
+        return ResponseEntity.status(302)
+        .header("Location","/cart")
+        .build();
+    }
+    @GetMapping("/remove/{productId}")
+public ResponseEntity<Void> removeItem(@PathVariable Long productId) {
+
+    Long userId = 1L;
+
+    cartService.removeItem(userId, productId);
+
+    return ResponseEntity.status(302)
+            .header("Location", "/cart")
+            .build();
+}
 }

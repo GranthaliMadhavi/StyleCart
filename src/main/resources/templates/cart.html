@@ -74,9 +74,23 @@
         </p>
 
         <p>
-            <strong>Quantity:</strong>
-            <span th:text="${entry.key.quantity}">1</span>
-        </p>
+    <strong>Quantity:</strong>
+
+    <a th:href="@{/carts/decrease/{id}(id=${entry.key.productId})}">
+        ➖
+    </a>
+
+    <span th:text="${entry.key.quantity}">1</span>
+
+    <a th:href="@{/carts/increase/{id}(id=${entry.key.productId})}">
+        ➕
+    </a>
+</p>
+<p>
+    <a th:href="@{/carts/remove/{id}(id=${entry.key.productId})}">
+        🗑️ Remove Item
+    </a>
+</p>
 
     </div>
 

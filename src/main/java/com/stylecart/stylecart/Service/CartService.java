@@ -77,4 +77,50 @@ public class CartService {
             return cartItemRepository.findByCartId(cart.getId());
 
     }
+    public void increaseQuantity(Long userId, Long productId) {
+        List<Cart> carts = cartRepository.findByUserId(userId);
+        if(carts.isEmpty()){
+            return ;
+        }
+        Cart cart = carts.get(0);
+        CartItem cartItem = cartItemRepository.findByCartIdAndProductId(cart.getId(), productId).orElse(null);
+
+        if(cartItem != null){
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+            cartItemRepository.save(cartItem);
+        }
+        }
+    public void decreaseQuantity(Long userId, Long productId) {
+        List<Cart> carts = cartRepository.findByUserId(userId);
+        if(carts.isEmpty()){
+            return;
+        }
+        Cart cart = carts.get(0);
+
+        CartItem cartItem = cartItemRepository.findByCartIdAndProductId(cart.getId(), productId).orElse(null);
+
+        if (cartItem != null && cartItem.getQuantity() > 1){
+            cartItem.setQuantity(cartItem.getQuantity() - 1);
+            cartItemRepository.save(cartItem);
+
+        }
+    }
+    public void removeItem(Long userId, Long productId) {
+
+    List<Cart> carts = cartRepository.findByUserId(userId);
+
+    if (carts.isEmpty()) {
+        return;
+    }
+
+    Cart cart = carts.get(0);
+
+    CartItem cartItem = cartItemRepository
+            .findByCartIdAndProductId(cart.getId(), productId)
+            .orElse(null);
+
+    if (cartItem != null) {
+        cartItemRepository.delete(cartItem);
+    }
+}
 }
