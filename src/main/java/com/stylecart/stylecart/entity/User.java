@@ -20,7 +20,7 @@ public class User {
 
     private String email;
     
-    @Column(name = "Pass")
+    @Column(name = "password")
     private String password;
 
     private String role;
@@ -29,7 +29,7 @@ public class User {
     private LocalDateTime createAt;
 
     public User() { //Default Constructor
-
+        this.createAt = LocalDateTime.now();
     }
 
     //getter and setter 

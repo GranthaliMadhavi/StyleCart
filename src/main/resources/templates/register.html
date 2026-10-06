@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register - StyleCart</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f5f1ed;
+        }
+
+        .navbar {
+            background-color: #3e2723;
+            padding: 18px;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 25px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #3e2723;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #3e2723;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #3e2723;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">StyleCart</a>
+        <a href="/">Home</a>
+        <a href="/product-page">Products</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </nav>
+
+    <div class="container">
+
+        <h1>Create Account</h1>
+
+        <form action="/register" method="post">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text"
+                       name="fullName"
+                       placeholder="Enter your full name"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email"
+                       name="email"
+                       placeholder="Enter your email"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password"
+                       name="password"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Role</label>
+                <select name="role" required>
+                    <option value="CUSTOMER">Customer</option>
+                    <option value="VENDOR">Vendor</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">
+                Register
+            </button>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="/login">Login here</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,26 +1,34 @@
 package com.stylecart.stylecart.controller;
 
-import com.stylecart.stylecart.entity.User;
 import com.stylecart.stylecart.Service.UserService;
-import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import com.stylecart.stylecart.entity.User;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
-@RestController
-@RequestMapping("/users")
+@Controller
 public class UserController {
+
     private final UserService userService;
 
-    public UserController(UserService userservice){
-        this.userService = userservice;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    @GetMapping("/register")
+    public String showRegistrationForm() {
+        return "register";
+    }
+    @GetMapping("/login")
+    public String showLoginForm(){
+        return "login";
     }
 
-    @PostMapping
-    public User createUser(@RequestBody User user){
-        return userService.saveUser(user);
+    @PostMapping("/register")
+    public String registerUser(User user) {
+
+        userService.saveUser(user);
+
+        return "redirect:/login";
     }
 }
