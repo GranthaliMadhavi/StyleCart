@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Vendor Dashboard - StyleCart</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: #3e2723;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 23px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            width: 85%;
+            margin: 40px auto;
+        }
+
+        .welcome {
+            background-color: #c19a5b;
+            padding: 30px;
+            border-radius: 10px;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .welcome h1 {
+            margin-top: 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .dashboard-card {
+            background-color: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .dashboard-card h2 {
+            color: #3e2723;
+        }
+        .dashboard-card .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            background-color: #3e2723;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+      }
+
+        .dashboard-card .btn:hover {
+            background-color: #5d4037;
+        }
+
+        .status {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .note {
+            margin-top: 30px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <a href="/" class="logo">StyleCart Vendor</a>
+        <a href="/product-page">View Store</a>
+    </nav>
+
+    <div class="container">
+
+        <section class="welcome">
+            <h1>
+                Welcome, <span th:text="${vendorName}">Vendor</span>!
+            </h1>
+            <p>Manage your store and grow your business with StyleCart.</p>
+        </section>
+
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card">
+                <h2>📦 Add Products</h2>
+                <p>Add clothing items, prices, descriptions and product images.</p>
+
+                <a href="/vendor/products/new" class="btn">
+                  Add a Product
+                </a>
+            </div>
+
+            <div class="dashboard-card">
+                <h2>🛍️ My Products</h2>
+                <p>View and manage the products listed by your store.</p>
+                <p class="status">Product management is coming next.</p>
+            </div>
+
+            <div class="dashboard-card">
+                <h2>📋 Orders</h2>
+                <p>Keep track of customer purchases of your products.</p>
+                <p class="status">Order management will follow.</p>
+            </div>
+
+        </div>
+
+        <p class="note">
+            Your vendor workspace is ready. We will connect these features step by step.
+        </p>
+
+    </div>
+
+</body>
+</html>

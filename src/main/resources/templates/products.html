@@ -127,9 +127,11 @@
 
         <div class="product-card" th:each="product : ${products}">
 
-            <img th:if="${product.image != null}"
-                th:src="@{/images/{image}(image=${product.image})}"
-                alt="Product Image">
+            
+          <img th:if="${product.image != null}"
+               th:src="${product.image}"
+               alt="Product Image">
+
             <h2 th:text="${product.name}">Product Name</h2>
 
             <p class="category"

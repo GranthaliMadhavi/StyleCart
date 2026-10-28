@@ -1,6 +1,9 @@
 package com.stylecart.stylecart.controller;
 
 import com.stylecart.stylecart.entity.Cart;
+
+import jakarta.servlet.http.HttpSession;
+
 import com.stylecart.stylecart.Service.CartService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -27,40 +30,81 @@ public class CartController {
         return cartService.saveCart(cart);
     }
 
-    @GetMapping("/add/{productId}")
-    public ResponseEntity<Void> addToCart(@PathVariable Long productId) {
+    
+@GetMapping("/add/{productId}")
+public ResponseEntity<Void> addToCart(
+        @PathVariable Long productId,
+        HttpSession session) {
 
-        Long userId = 1L;
+    Long userId = (Long) session.getAttribute("userId");
 
-        cartService.addToCart(userId, productId);
-
+    if (userId == null) {
         return ResponseEntity.status(302)
-                .header("Location", "/product-page")
+                .header("Location", "/login")
                 .build();
     }
-    @GetMapping("/increase/{productId}")
-    public ResponseEntity<Void> increaseQuantity(@PathVariable Long productId){
-        Long userId = 1L;
 
-        cartService.increaseQuantity(userId, productId);
-        
+    cartService.addToCart(userId, productId);
+
+    return ResponseEntity.status(302)
+            .header("Location", "/product-page")
+            .build();
+}
+
+    
+@GetMapping("/increase/{productId}")
+public ResponseEntity<Void> increaseQuantity(
+        @PathVariable Long productId,
+        HttpSession session) {
+
+    Long userId = (Long) session.getAttribute("userId");
+
+    if (userId == null) {
         return ResponseEntity.status(302)
-                .header("Location", "/cart")
+                .header("Location", "/login")
                 .build();
     }
-    @GetMapping("/decrease/{productId}")
-    public ResponseEntity<Void> decreaseQuantity(@PathVariable Long productId){
-        Long userId = 1L;
 
-        cartService.decreaseQuantity(userId, productId);
+    cartService.increaseQuantity(userId, productId);
+
+    return ResponseEntity.status(302)
+            .header("Location", "/cart")
+            .build();
+}
+
+@GetMapping("/decrease/{productId}")
+public ResponseEntity<Void> decreaseQuantity(
+        @PathVariable Long productId,
+        HttpSession session) {
+
+    Long userId = (Long) session.getAttribute("userId");
+
+    if (userId == null) {
         return ResponseEntity.status(302)
-        .header("Location","/cart")
-        .build();
+                .header("Location", "/login")
+                .build();
     }
-    @GetMapping("/remove/{productId}")
-public ResponseEntity<Void> removeItem(@PathVariable Long productId) {
 
-    Long userId = 1L;
+    cartService.decreaseQuantity(userId, productId);
+
+    return ResponseEntity.status(302)
+            .header("Location", "/cart")
+            .build();
+}
+
+
+@GetMapping("/remove/{productId}")
+public ResponseEntity<Void> removeItem(
+        @PathVariable Long productId,
+        HttpSession session) {
+
+    Long userId = (Long) session.getAttribute("userId");
+
+    if (userId == null) {
+        return ResponseEntity.status(302)
+                .header("Location", "/login")
+                .build();
+    }
 
     cartService.removeItem(userId, productId);
 
@@ -68,4 +112,5 @@ public ResponseEntity<Void> removeItem(@PathVariable Long productId) {
             .header("Location", "/cart")
             .build();
 }
+
 }

@@ -55,6 +55,17 @@ public class Product {
     }
 
     private String category;
+    
+    @Column(name = "target_audience")
+    private String targetAudience;
+
+    public String getTargetAudience() {
+     return targetAudience;
+    }
+
+    public void setTargetAudience(String targetAudience) {
+     this.targetAudience = targetAudience;
+    }
 
     public String getCategory(){
         return category;

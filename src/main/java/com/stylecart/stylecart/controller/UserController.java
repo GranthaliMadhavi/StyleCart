@@ -41,6 +41,7 @@ public class UserController {
             .findUserByEmail(user.getEmail())
             .orElse(null);
 
+
     if (existingUser != null &&
             passwordEncoder.matches(
                     user.getPassword(),

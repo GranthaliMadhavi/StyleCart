@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -90,6 +90,11 @@
     <div class="container">
 
         <h1>Login</h1>
+
+        <p th:if="${param.error}"
+   style="color: red; text-align: center;">
+    Invalid email or password. Please try again.
+</p>
 
         <form action="/login" method="post">
 

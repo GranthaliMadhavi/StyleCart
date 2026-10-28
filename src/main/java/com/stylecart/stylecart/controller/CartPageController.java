@@ -7,6 +7,7 @@ import com.stylecart.stylecart.entity.Product;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import jakarta.servlet.http.HttpSession;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -24,32 +25,37 @@ public class CartPageController {
         this.productService = productService;
     }
 
-    @GetMapping("/cart")
-    public String cartPage(Model model) {
+   
+@GetMapping("/cart")
+public String cartPage(Model model, HttpSession session) {
 
-        Long userId = 1L;
+    Long userId = (Long) session.getAttribute("userId");
 
-        List<CartItem> cartItems = cartService.getCartItemsForUser(userId);
-
-        Map<CartItem, Product> cartProducts = new LinkedHashMap<>();
-
-        for (CartItem item : cartItems) {
-
-            Product product = productService.getProductById(item.getProductId());
-
-            cartProducts.put(item, product);
-        }
-        double grandTotal = 0;
-
-        for(Map.Entry<CartItem,Product> entry : cartProducts.entrySet()){
-            CartItem item = entry.getKey();
-            Product product = entry.getValue();
-            grandTotal += item.getQuantity() * product.getPrice();
-        }
-
-        model.addAttribute("grandTotal", grandTotal);
-        model.addAttribute("cartProducts", cartProducts);
-
-        return "cart";
+    if (userId == null) {
+        return "redirect:/login";
     }
+
+    List<CartItem> cartItems = cartService.getCartItemsForUser(userId);
+
+    Map<CartItem, Product> cartProducts = new LinkedHashMap<>();
+
+    for (CartItem item : cartItems) {
+        Product product = productService.getProductById(item.getProductId());
+        cartProducts.put(item, product);
+    }
+
+    double grandTotal = 0;
+
+    for (Map.Entry<CartItem, Product> entry : cartProducts.entrySet()) {
+        CartItem item = entry.getKey();
+        Product product = entry.getValue();
+        grandTotal += item.getQuantity() * product.getPrice();
+    }
+
+    model.addAttribute("grandTotal", grandTotal);
+    model.addAttribute("cartProducts", cartProducts);
+
+    return "cart";
+}
+
 }
